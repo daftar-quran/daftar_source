@@ -1,5 +1,6 @@
-import json
 import decimal
+import json
+
 
 class CustomJsonEncoder(json.JSONEncoder):
     def default(self, o):
