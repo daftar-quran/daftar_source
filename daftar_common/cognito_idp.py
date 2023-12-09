@@ -492,4 +492,3 @@ class CognitoIdentityProviderWrapper:
             raise
         else:
             return auth_tokens
-
