@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   daftar-source:
-    name: 'Prepare layer daftar source'
+    name: 'Preparing layer daftar source'
     runs-on: ubuntu-latest
 
     steps:
