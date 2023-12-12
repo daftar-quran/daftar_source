@@ -57,4 +57,4 @@ jobs:
           role-skip-session-tagging: true
       - name: Copy files to bucket
         run: |
-          aws s3 sync ./dist/${{github.sha}}.zip s3://daftar-dev-lambda-artifact-bucket/layers/daftar_source
+          aws s3 cp ./dist/${{github.sha}}.zip s3://daftar-dev-lambda-artifact-bucket/layers/daftar_source
