@@ -54,6 +54,7 @@ jobs:
           role-to-assume:  ${{ secrets.AWS_ROLE_TO_ASSUME }}
           role-duration-seconds: 1200
           role-session-name: DaftarRunnerSession
+          role-skip-session-tagging: true
       - name: Copy files to bucket
         run: |
           aws s3 sync ./dist/${{github.sha}}.zip s3://daftar-dev-lambda-artifact-bucket/layers/daftar_source
