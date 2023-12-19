@@ -39,11 +39,11 @@ jobs:
       - name: Install dependencies
         run: make install
 
+      - name: Install zip
+        uses: montudor/action-zip@v1
+
       - name: Packaging artifact
-        uses: vimtor/action-zip@v1.1
-        with:
-          files: daftar_common/ venv/lib/*/site-packages/
-          dest: ./dist/${{github.sha}}.zip
+        run: zip -qq -r ${{github.sha}}.zip daftar_common venv/lib/*/site-packages
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
