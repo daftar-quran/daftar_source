@@ -65,6 +65,7 @@ clean-logs:
 safety:
 	$(SAFETY) check
 
+
 setup: clean-venv add-venv install-dev install
 
 run:
