@@ -34,7 +34,10 @@ jobs:
           python-version: '3.9'
 
       - name: Install dependencies
-        run: pip3 install -r requirements.txt -t python/
+        run: | 
+          mkdir python
+          cp -r daftar_common python
+          pip3 install -r requirements.txt -t python/
 
       - name: Install zip
         uses: montudor/action-zip@v1
