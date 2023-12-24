@@ -21,3 +21,7 @@ class User(BaseModel):
     address: Optional[str] = ""
     classrooms: List[UserClassroom] = []
     created_at: Optional[datetime.datetime] = datetime.datetime.now()
+
+
+class Users(BaseModel):
+    users: List[User]
