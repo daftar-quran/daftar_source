@@ -23,7 +23,6 @@ class TableManager:
 
         return True
 
-
     def get_item_by_id(self, id_item: str, id_name='id'):
         response = self.table.get_item(Key={id_name: id_item})
         return replace_decimals(response.get('Item', {}))
@@ -50,4 +49,6 @@ class TableManager:
 
         return [replace_decimals(item) for item in items]
 
+    def delete_item_by_id(self, id_item: str, id_name='id'):
+        self.table.delete_item(Key={id_name: id_item})
 
