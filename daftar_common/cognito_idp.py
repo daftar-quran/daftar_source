@@ -492,3 +492,8 @@ class CognitoIdentityProviderWrapper:
             raise
         else:
             return auth_tokens
+
+    def delete_user_by_username(self, username):
+        self.cognito_idp_client.admin_delete_user(
+            UserPoolId=self.user_pool_id,
+            Username=username)
