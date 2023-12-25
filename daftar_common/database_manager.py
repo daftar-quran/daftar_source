@@ -25,7 +25,7 @@ class TableManager:
 
 
     def get_item_by_id(self, id_item: str, id_name='id'):
-        response = self.table.get_item({id_name: id_item})
+        response = self.table.get_item(Key={id_name: id_item})
         return replace_decimals(response.get('Item', {}))
 
     def scan_table(self, filter_expression=None, projection_expression=None, limit=None):
