@@ -16,12 +16,15 @@ class User(BaseModel):
     firstname: str
     lastname: str
     email: EmailStr
-    is_admin: bool
+    _is_admin: bool = False
     birthdate: datetime.date
     address: Optional[str] = ""
     classrooms: List[UserClassroom] = []
     created_at: Optional[datetime.datetime] = datetime.datetime.now()
 
-
+    @property
+    def is_admin(self) -> bool:
+        return self._is_admin
+    
 class Users(BaseModel):
     users: List[User]
