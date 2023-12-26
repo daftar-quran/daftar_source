@@ -52,3 +52,19 @@ class TableManager:
     def delete_item_by_id(self, id_item: str, id_name='id'):
         self.table.delete_item(Key={id_name: id_item})
 
+    def update_item_by_id(self, id_item: str, new_item: dict, id_name='id'):
+        
+        # UTC to ISO 8601 with Local TimeZone information without microsecond
+        updated_date = datetime_to_string(datetime.utcnow())
+        new_item["last_update"] = updated_date
+
+        # https://blog.ruanbekker.com/blog/2019/02/05/convert-float-to-decimal-data-types-for-boto3-dynamodb-using-python/
+        item_dict = json.loads(json.dumps(new_item), parse_float=Decimal)
+
+        expected_dict = {id_name: {"Exists": True, "Value": id_item}}
+
+        try:
+            self.table.put_item(Item=item_dict, Expected=expected_dict)
+        except Exception:
+            raise
+        return True

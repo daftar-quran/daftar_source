@@ -1,8 +1,7 @@
 import datetime
 import uuid
 from typing import List, Optional
-
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr
 
 
 class UserClassroom(BaseModel):
@@ -11,7 +10,7 @@ class UserClassroom(BaseModel):
 
 
 class User(BaseModel):
-    id: uuid.UUID = Field(default_factory=uuid.uuid4)
+    _id: Optional[uuid.UUID]
     pseudo: str
     firstname: str
     lastname: str
@@ -25,6 +24,11 @@ class User(BaseModel):
     @property
     def is_admin(self) -> bool:
         return self._is_admin
-    
+
+    @property
+    def id(self) -> bool:
+        return self._id
+
+
 class Users(BaseModel):
     users: List[User]
