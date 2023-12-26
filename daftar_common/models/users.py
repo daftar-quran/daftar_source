@@ -10,7 +10,7 @@ class UserClassroom(BaseModel):
 
 
 class User(BaseModel):
-    _id: Optional[uuid.UUID]
+    id: Optional[uuid.UUID]
     pseudo: str
     firstname: str
     lastname: str
@@ -24,10 +24,6 @@ class User(BaseModel):
     @property
     def is_admin(self) -> bool:
         return self._is_admin
-
-    @property
-    def id(self) -> bool:
-        return self._id
 
 
 class Users(BaseModel):
