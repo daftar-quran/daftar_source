@@ -10,7 +10,7 @@ class UserClassroom(BaseModel):
 
 
 class User(BaseModel):
-    id: Optional[uuid.UUID]
+    id: Optional[uuid.UUID] = None
     pseudo: str
     firstname: str
     lastname: str
