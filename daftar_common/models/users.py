@@ -20,6 +20,7 @@ class User(BaseModel):
     address: Optional[str] = ""
     classrooms: List[UserClassroom] = []
     created_at: Optional[datetime.datetime] = datetime.datetime.now()
+    phone_number: Optional[str] = None
 
     @property
     def is_admin(self) -> bool:
