@@ -10,7 +10,7 @@ class UserClassroom(BaseModel):
     is_teacher: str
 
 
-class User(BaseModel):
+class User(BaseModel, validate_assignment=True):
     id: Optional[uuid.UUID] = None
     pseudo: str
     firstname: str
