@@ -23,37 +23,39 @@ class TableManager:
 
         return True
 
-    def get_item_by_id(self, id_item: str, id_name='id'):
+    def get_item_by_id(self, id_item: str, id_name="id"):
         response = self.table.get_item(Key={id_name: id_item})
-        return replace_decimals(response.get('Item', {}))
+        return replace_decimals(response.get("Item", {}))
 
-    def scan_table(self, filter_expression=None, projection_expression=None, limit=None):
+    def scan_table(
+        self, filter_expression=None, projection_expression=None, limit=None
+    ):
         """
         Be cautious with this method
         """
         scan_kwargs = {}
         if filter_expression:
-            scan_kwargs['FilterExpression'] = filter_expression
+            scan_kwargs["FilterExpression"] = filter_expression
         if projection_expression:
-            scan_kwargs['ProjectionExpression'] = projection_expression
+            scan_kwargs["ProjectionExpression"] = projection_expression
         if limit:
-            scan_kwargs['Limit'] = limit
+            scan_kwargs["Limit"] = limit
 
         response = self.table.scan(**scan_kwargs)
 
-        items = response.get('Items', [])
-        while 'LastEvaluatedKey' in response:
-            scan_kwargs['ExclusiveStartKey'] = response['LastEvaluatedKey']
+        items = response.get("Items", [])
+        while "LastEvaluatedKey" in response:
+            scan_kwargs["ExclusiveStartKey"] = response["LastEvaluatedKey"]
             response = self.table.scan(**scan_kwargs)
-            items.extend(response.get('Items', []))
+            items.extend(response.get("Items", []))
 
         return [replace_decimals(item) for item in items]
 
-    def delete_item_by_id(self, id_item: str, id_name='id'):
+    def delete_item_by_id(self, id_item: str, id_name="id"):
         self.table.delete_item(Key={id_name: id_item})
 
-    def update_item_by_id(self, id_item: str, new_item: dict, id_name='id'):
-        
+    def update_item_by_id(self, id_item: str, new_item: dict, id_name="id"):
+
         # UTC to ISO 8601 with Local TimeZone information without microsecond
         updated_date = datetime_to_string(datetime.utcnow())
         new_item["last_update"] = updated_date

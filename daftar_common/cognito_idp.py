@@ -495,8 +495,10 @@ class CognitoIdentityProviderWrapper:
 
     def delete_user_by_username(self, username):
         self.cognito_idp_client.admin_delete_user(
-            UserPoolId=self.user_pool_id,
-            Username=username)
-        
+            UserPoolId=self.user_pool_id, Username=username
+        )
+
     def get_username_by_access_token(self, access_token):
-        return self.cognito_idp_client.get_user(AccessToken=access_token).get('Username')
+        return self.cognito_idp_client.get_user(AccessToken=access_token).get(
+            "Username"
+        )

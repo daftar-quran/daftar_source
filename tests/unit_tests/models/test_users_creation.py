@@ -16,6 +16,7 @@ def user_classroom():
 @pytest.fixture
 def user(user_classroom):
     return User(
+        id=uuid.uuid4(),
         pseudo="user1",
         firstname="John",
         lastname="Doe",
