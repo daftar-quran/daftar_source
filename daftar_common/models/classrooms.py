@@ -1,9 +1,9 @@
 import datetime
 import uuid
 from enum import Enum, auto
-from typing import Field, List
+from typing import List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ClassroomRoles(Enum):
@@ -18,7 +18,7 @@ class CourseDescription(BaseModel):
     date: datetime.datetime
 
 
-class Classroom(BaseModel):
+class Classroom(BaseModel, validate_assignment=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4)
     name: str
     tikrar_goal: str
@@ -30,7 +30,7 @@ class Classroom(BaseModel):
 
     def get_user_role(self, user_id):
         """
-        Returns the role of the given user_id in classroom. 
+        Returns the role of the given user_id in classroom.
         if user_id is not in classroom, returns None
         """
         for adm in self.admins:
