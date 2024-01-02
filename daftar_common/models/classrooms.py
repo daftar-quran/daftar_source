@@ -35,3 +35,7 @@ class Classroom(BaseModel):
     temporary_teachers: List[TemporaryTeacherId]
     students: List[StudentId]
     courses: List[CourseDescription]
+
+
+class Classrooms(BaseModel):
+    classrooms: List[Classroom]
