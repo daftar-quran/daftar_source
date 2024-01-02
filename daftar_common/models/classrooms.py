@@ -1,6 +1,7 @@
 import datetime
 import uuid
-from typing import List, Optional
+from typing import Field, List
+
 from pydantic import BaseModel
 
 
@@ -26,7 +27,7 @@ class CourseDescription(BaseModel):
 
 
 class Classroom(BaseModel):
-    id: Optional[uuid.UUID] = None
+    id: uuid.UUID = Field(default_factory=uuid.uuid4)
     name: str
     tikrar_goal: str
     admins: List[AdminId]
