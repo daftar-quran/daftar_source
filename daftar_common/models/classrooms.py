@@ -1,16 +1,16 @@
 import datetime
 import uuid
-from enum import Enum, auto
+from enum import Enum
 from typing import List
 
 from pydantic import BaseModel, Field
 
 
 class ClassroomRoles(Enum):
-    admin = auto()
-    temporary_teacher = auto()
-    permanent_teacher = auto()
-    student = auto()
+    admin = "admin"
+    temporary_teacher = "temporary_teacher"
+    permanent_teacher = "permanent_teacher"
+    student = "student"
 
 
 class CourseDescription(BaseModel):
