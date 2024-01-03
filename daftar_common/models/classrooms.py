@@ -21,7 +21,7 @@ class CourseDescription(BaseModel):
 class Classroom(BaseModel, validate_assignment=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4)
     name: str
-    tikrar_goal: str
+    tikrar_goal: int
     admins: List[uuid.UUID]
     permanent_teachers: List[uuid.UUID] = []
     temporary_teachers: List[uuid.UUID] = []
