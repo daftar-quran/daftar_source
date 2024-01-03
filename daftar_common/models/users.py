@@ -7,7 +7,7 @@ from pydantic import BaseModel, EmailStr
 
 class UserClassroom(BaseModel):
     id_classroom: uuid.UUID
-    is_teacher: str
+    role: str
 
 
 class User(BaseModel, validate_assignment=True):
@@ -26,6 +26,35 @@ class User(BaseModel, validate_assignment=True):
     @property
     def is_admin(self) -> bool:
         return self._is_admin
+
+    def belongs_to_classroom(self, classroom_id: str):
+        """
+        Returns True if the user belongs to the input classroom_id. False otherwise
+        """
+        return any(
+            map(
+                lambda classroom: classroom.get("id_classroom") == classroom_id,
+                self.classrooms,
+            )
+        )
+
+    def update_classroom_role(self, classroom_id: str, role: str):
+        """
+        If user does not belong to the specified classroom, we create the link.
+        Otherwise, we only update its role
+
+        Returns: None
+        """
+        user_belongs_to_classroom = self.belongs_to_classroom(classroom_id)
+        if user_belongs_to_classroom:
+            for classroom in self.classrooms:
+                if classroom.get("id_classroom") == classroom_id:
+                    classroom["role"] = role
+                    break
+        else:
+            self.classrooms.append({"id_classroom": classroom_id, "role": role})
+
+        return
 
 
 class Users(BaseModel):

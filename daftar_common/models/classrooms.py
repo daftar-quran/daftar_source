@@ -52,9 +52,9 @@ class Classroom(BaseModel, validate_assignment=True):
 
     def switch_role_to_user(self, user_id: str, desired_role: ClassroomRoles):
         """
-        Add or update user's role in classroom 
+        Add or update user's role in classroom
         """
-        
+
         user_role = self.get_user_role(user_id=user_id)
 
         if not user_role:
@@ -64,7 +64,21 @@ class Classroom(BaseModel, validate_assignment=True):
             getattr(self, desired_role.value + "s").append(uuid.UUID(user_id))
         return
 
+    def remove_user_from_classroom(self, user_id: str):
+        """
+        Remove a user from classroom
+        """
 
+        user_role = self.get_user_role(user_id=user_id)
+
+        if user_role == ClassroomRoles.admin and len(self.admins):
+            # Cannot remove last admin from this classroom.
+            return False
+
+        if not user_role:
+            return True
+        getattr(self, user_role.value + "s").remove(uuid.UUID(user_id))
+        return True
 
 
 class Classrooms(BaseModel):
