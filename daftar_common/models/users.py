@@ -52,7 +52,9 @@ class User(BaseModel, validate_assignment=True):
                     classroom.role = role
                     break
         else:
-            self.classrooms.append({"id_classroom": classroom_id, "role": role})
+            self.classrooms.append(
+                UserClassroom(**{"id_classroom": classroom_id, "role": role})
+            )
 
         return
 
