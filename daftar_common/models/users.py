@@ -48,13 +48,25 @@ class User(BaseModel, validate_assignment=True):
         user_belongs_to_classroom = self.belongs_to_classroom(classroom_id)
         if user_belongs_to_classroom:
             for classroom in self.classrooms:
-                if classroom.get("id_classroom") == classroom_id:
-                    classroom["role"] = role
+                if classroom.id_classroom == classroom_id:
+                    classroom.role = role
                     break
         else:
             self.classrooms.append({"id_classroom": classroom_id, "role": role})
 
         return
+
+    def deregister_user_from_classroom(self, classroom_id: str):
+        """
+        Deregister the user from the given classroom_id.
+        If the user does not belong to the classroom_id, nothing happens
+        Returns: None
+        """
+        self.classrooms[:] = [
+            classroom
+            for classroom in self.classrooms
+            if classroom.get("id_classroom") != classroom_id
+        ]
 
 
 class Users(BaseModel):
