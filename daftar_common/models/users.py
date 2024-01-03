@@ -33,7 +33,7 @@ class User(BaseModel, validate_assignment=True):
         """
         return any(
             map(
-                lambda classroom: classroom.get("id_classroom") == classroom_id,
+                lambda classroom: classroom.id_classroom == classroom_id,
                 self.classrooms,
             )
         )
