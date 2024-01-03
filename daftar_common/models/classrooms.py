@@ -50,6 +50,22 @@ class Classroom(BaseModel, validate_assignment=True):
                 return ClassroomRoles.student
         return None
 
+    def switch_role_to_user(self, user_id: str, desired_role: ClassroomRoles):
+        """
+        Add or update user's role in classroom 
+        """
+        
+        user_role = self.get_user_role(user_id=user_id)
+
+        if not user_role:
+            getattr(self, desired_role.value + "s").append(uuid.UUID(user_id))
+        else:
+            getattr(self, user_role.value + "s").remove(uuid.UUID(user_id))
+            getattr(self, desired_role.value + "s").append(uuid.UUID(user_id))
+        return
+
+
+
 
 class Classrooms(BaseModel):
     classrooms: List[Classroom]
