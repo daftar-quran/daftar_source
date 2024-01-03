@@ -33,7 +33,7 @@ class User(BaseModel, validate_assignment=True):
         """
         return any(
             map(
-                lambda classroom: classroom.id_classroom == classroom_id,
+                lambda classroom: str(classroom.id_classroom) == classroom_id,
                 self.classrooms,
             )
         )
@@ -48,7 +48,7 @@ class User(BaseModel, validate_assignment=True):
         user_belongs_to_classroom = self.belongs_to_classroom(classroom_id)
         if user_belongs_to_classroom:
             for classroom in self.classrooms:
-                if classroom.id_classroom == classroom_id:
+                if str(classroom.id_classroom) == classroom_id:
                     classroom.role = role
                     break
         else:
@@ -67,7 +67,7 @@ class User(BaseModel, validate_assignment=True):
         self.classrooms[:] = [
             classroom
             for classroom in self.classrooms
-            if classroom.get("id_classroom") != classroom_id
+            if str(classroom.id_classroom) != classroom_id
         ]
 
 
