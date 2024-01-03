@@ -28,25 +28,25 @@ class Classroom(BaseModel, validate_assignment=True):
     students: List[uuid.UUID] = []
     courses: List[CourseDescription] = []
 
-    def get_user_role(self, user_id):
+    def get_user_role(self, user_id: str):
         """
         Returns the role of the given user_id in classroom.
         if user_id is not in classroom, returns None
         """
         for adm in self.admins:
-            if adm == user_id:
+            if str(adm) == user_id:
                 return ClassroomRoles.admin
 
         for pt in self.permanent_teachers:
-            if pt == user_id:
+            if str(pt) == user_id:
                 return ClassroomRoles.permanent_teacher
 
         for tt in self.temporary_teachers:
-            if tt == user_id:
+            if str(tt) == user_id:
                 return ClassroomRoles.temporary_teacher
 
         for student in self.students:
-            if student == user_id:
+            if str(student) == user_id:
                 return ClassroomRoles.student
         return None
 
