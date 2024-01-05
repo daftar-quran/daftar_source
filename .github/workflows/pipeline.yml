@@ -60,7 +60,7 @@ jobs:
           aws s3 cp ${{github.sha}}.zip s3://daftar-dev-lambda-artifact-bucket/layers/daftar_source/${{github.sha}}.zip
 
       - name: Deploy
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.DISPATCH_TOKEN }}
           script: |
