@@ -58,3 +58,16 @@ jobs:
       - name: Copy files to bucket
         run: |
           aws s3 cp ${{github.sha}}.zip s3://daftar-dev-lambda-artifact-bucket/layers/daftar_source/${{github.sha}}.zip
+
+      - name: Deploy
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.DISPATCH_TOKEN }}
+          script: |
+            const result = await github.rest.repos.createDispatchEvent({
+              owner: 'daftar-quran',
+              repo: 'terraform',
+              event_type: 'deploy_terraform',
+              client_payload: {"artifact_daftar_source": "layers/daftar_source/${{github.sha}}.zip"}
+            })
+            console.log(result);
