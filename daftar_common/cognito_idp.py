@@ -502,3 +502,16 @@ class CognitoIdentityProviderWrapper:
         return self.cognito_idp_client.get_user(AccessToken=access_token).get(
             "Username"
         )
+
+    def forgot_password(self, user_sub):
+        return self.cognito_idp_client.forgot_password(
+            ClientId=self.client_id, Username=user_sub
+        )
+
+    def confirm_forgot_password(self, user_sub, confirmation_code, new_password):
+        return self.cognito_idp_client.confirm_forgot_password(
+            ClientId=self.client_id,
+            Username=user_sub,
+            ConfirmationCode=confirmation_code,
+            Password=new_password,
+        )
