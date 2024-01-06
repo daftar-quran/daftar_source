@@ -12,7 +12,6 @@ class UserClassroom(BaseModel):
 
 class User(BaseModel, validate_assignment=True):
     id: Optional[uuid.UUID] = None
-    pseudo: str
     firstname: str
     lastname: str
     email: EmailStr
