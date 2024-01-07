@@ -64,7 +64,7 @@ jobs:
         with:
           github-token: ${{ secrets.DISPATCH_TOKEN }}
           script: |
-            const data = {"artifact_daftar_source": "layers/daftar_source/${{github.sha}}.zip"}
+            const data = {"artifact_daftar_source": "layers/daftar_source/${{github.sha}}.zip", "ref": "v1.0"}
             const result = await github.rest.repos.createDispatchEvent({
               owner: 'daftar-quran',
               repo: 'terraform',
