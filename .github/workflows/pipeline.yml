@@ -64,10 +64,11 @@ jobs:
         with:
           github-token: ${{ secrets.DISPATCH_TOKEN }}
           script: |
+            const data = {"artifact_daftar_source": "layers/daftar_source/${{github.sha}}.zip"}
             const result = await github.rest.repos.createDispatchEvent({
               owner: 'daftar-quran',
               repo: 'terraform',
               event_type: 'deploy_terraform',
-              client_payload: {"artifact_daftar_source": "layers/daftar_source/${{github.sha}}.zip"}
+              client_payload: data
             })
-            console.log(result);
+            console.log(data);
