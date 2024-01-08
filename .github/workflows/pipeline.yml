@@ -1,4 +1,4 @@
-name: 'Daftar Quran'
+name: 'Daftar Quran : Layer'
 
 on:
   push:
@@ -64,11 +64,12 @@ jobs:
         with:
           github-token: ${{ secrets.DISPATCH_TOKEN }}
           script: |
-            const data = {"artifact_daftar_source": "layers/daftar_source/${{github.sha}}.zip", "ref": "v1.0"}
-            const result = await github.rest.repos.createDispatchEvent({
+            const data = {"artifact_daftar_source": "layers/daftar_source/${{github.sha}}.zip"}
+            const result = await github.rest.actions.createWorkflowDispatch({
               owner: 'daftar-quran',
               repo: 'terraform',
-              event_type: 'deploy_terraform',
-              client_payload: data
+              ref: 'v1.0',
+              workflow_id: 'terraform_service.yml',
+              inputs: data
             })
             console.log(data);
